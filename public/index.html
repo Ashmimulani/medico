@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AyurCare - Trusted Ayurvedic Healthcare & Wellness Platform</title>
+  <meta name="description" content="Accessible, evidence-based Ayurvedic healthcare and wellness guidance across India. Smart symptom checker, verified remedies, doctor consultation, and Prakriti assessment.">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+
+  <!-- Screen reader skip to main content -->
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
+
+  <!-- Top Emergency Strip -->
+  <div class="top-emergency-bar" role="alert">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="font-size: 1.1rem;">🚨</span>
+      <span data-i18n="emergency_strip">
+        Emergency Medical Alert: For severe or life-threatening conditions (chest pain, acute breathlessness, collapse), call emergency services immediately.
+      </span>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <a href="tel:108" class="emergency-helpline" title="Call National Ambulance 108">📞 108 Ambulance</a>
+      <a href="tel:112" class="emergency-helpline" title="Call National Emergency 112">📞 112 Emergency</a>
+    </div>
+  </div>
+
+  <!-- Top Accessibility Toolbar -->
+  <div class="top-accessibility-bar" aria-label="Accessibility Options">
+    <div class="accessibility-controls">
+      <div class="font-size-group">
+        <span data-i18n="text_size">Text Size:</span>
+        <button class="a11y-btn active" id="btnFontNormal" title="Normal text size">A</button>
+        <button class="a11y-btn" id="btnFontLarge" title="Large text size">A+</button>
+        <button class="a11y-btn" id="btnFontXLarge" title="Extra large text size">A++</button>
+      </div>
+      <div class="contrast-group">
+        <button class="a11y-btn" id="btnHighContrast" title="Toggle high contrast color mode">👁️ High Contrast</button>
+      </div>
+      <div>
+        <button class="a11y-btn" id="btnGlobalReadAloud" title="Read this page aloud">
+          🔊 <span data-i18n="read_aloud">Listen to Page</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="language-group">
+      <label for="langSelect" style="font-weight: 600; font-size: 0.8rem; margin-right: 4px;" data-i18n="lang_select">Language:</label>
+      <select id="langSelect" class="lang-select" aria-label="Select Language">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="mr">मराठी (Marathi)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Main Site Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="#home" class="brand-logo" onclick="showSection('homeSection')">
+        <div class="brand-icon" aria-hidden="true">🌿</div>
+        <div class="brand-text">
+          <h1>AyurCare</h1>
+          <span>आयुर्वेद आरोग्य मंच</span>
+        </div>
+      </a>
+
+      <!-- Navigation Links -->
+      <nav class="main-nav" id="mainNav" aria-label="Main Navigation">
+        <a href="#home" class="nav-link active" data-section="homeSection" data-i18n="nav_home">Home</a>
+        <a href="#symptom-checker" class="nav-link" data-section="symptomCheckerSection" data-i18n="nav_symptom">Symptom Checker</a>
+        <a href="#remedies" class="nav-link" data-section="remediesSection" data-i18n="nav_remedies">Ayurvedic Remedies</a>
+        <a href="#doctors" class="nav-link" data-section="doctorsSection" data-i18n="nav_doctors">Consult Doctor</a>
+        <a href="#assessment" class="nav-link" data-section="assessmentSection" data-i18n="nav_assessment">Prakriti Quiz</a>
+        <a href="#education" class="nav-link" data-section="educationSection" data-i18n="nav_education">AyurGyan & Myths</a>
+        <a href="#appointments" class="nav-link" data-section="appointmentsSection" data-i18n="nav_appointments">My Appointments</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="btn-book-quick" onclick="showSection('doctorsSection')">
+          <span>🩺</span> <span data-i18n="book_now">Book Consultation</span>
+        </button>
+        <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle Navigation Menu">
+          ☰
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main id="mainContent">
+
+    <!-- =========================================================
+         SECTION A: HOME PAGE
+         ========================================================= -->
+    <section id="homeSection" class="section-view active">
+      <!-- Hero Banner with Voice Search -->
+      <div class="hero-banner">
+        <div class="hero-content">
+          <span class="hero-tag" data-i18n="hero_tag">Vedic Wisdom • Clinical Evidence • Trusted Care</span>
+          <h2 class="hero-title" data-i18n="hero_title">Reliable Ayurvedic Healthcare & Wellness For All</h2>
+          <p class="hero-subtitle" data-i18n="hero_subtitle">
+            Bridging classical Ayurvedic knowledge with modern medical awareness. Simple, safe, and accessible healthcare guidance for every Indian citizen.
+          </p>
+
+          <!-- Global Search Bar -->
+          <div class="search-wrapper">
+            <form id="globalSearchForm" class="search-box" role="search">
+              <span style="font-size: 1.25rem; color: #94a3b8; margin-right: 8px;">🔍</span>
+              <input
+                type="text"
+                id="globalSearchInput"
+                class="search-input"
+                placeholder="Search health problems, symptoms, herbs, or remedies..."
+                data-i18n-placeholder="search_placeholder"
+                autocomplete="off"
+                aria-label="Search remedies, symptoms, doctors, or articles"
+              >
+              <button
+                type="button"
+                id="searchVoiceBtn"
+                class="search-voice-btn"
+                title="Speak to Search (Voice Input in Hindi / English)"
+                aria-label="Speak to Search"
+              >
+                🎙️
+              </button>
+              <button type="submit" class="search-submit-btn" data-i18n="search_btn">Search</button>
+            </form>
+
+            <!-- Search Autocomplete Dropdown -->
+            <div id="searchDropdown" class="search-dropdown" role="region" aria-live="polite"></div>
+          </div>
+
+          <!-- Quick Topic Chips -->
+          <div class="quick-symptom-chips">
+            <span data-i18n="popular_searches">Quick topics:</span>
+            <button class="symptom-chip" onclick="selectSearchSymptom('cough-and-cold')">🤧 Cough & Cold</button>
+            <button class="symptom-chip" onclick="selectSearchSymptom('digestive-acidity-bloating')">🥣 Acidity & Gas</button>
+            <button class="symptom-chip" onclick="selectSearchRemedy('turmeric-haldi')">🌿 Haldi (Turmeric)</button>
+            <button class="symptom-chip" onclick="selectSearchRemedy('ashwagandha')">🌱 Ashwagandha</button>
+            <button class="symptom-chip" onclick="selectSearchSymptom('joint-pain-stiffness')">🦴 Joint Pain</button>
+            <button class="symptom-chip" onclick="selectSearchRemedy('triphala')">🥣 Triphala</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Emergency Red Flag Alert Strip -->
+      <div class="emergency-callout">
+        <div class="emergency-callout-left">
+          <div class="emergency-callout-icon">🚨</div>
+          <div class="emergency-callout-text">
+            <h3 data-i18n="emergency_heading">Experiencing an Acute Emergency?</h3>
+            <p data-i18n="emergency_desc">
+              Ayurvedic home remedies are not intended for sudden severe emergencies. Do not delay hospital care.
+            </p>
+          </div>
+        </div>
+        <div class="emergency-callout-actions">
+          <a href="tel:108" class="btn-emergency-dial" data-i18n="call_108">📞 Call 108 (Ambulance)</a>
+          <a href="tel:112" class="btn-emergency-dial" style="background: #991b1b;" data-i18n="call_112">📞 Call 112 (National Emergency)</a>
+        </div>
+      </div>
+
+      <!-- Core Features Grid -->
+      <div class="section-header">
+        <div class="sub-heading">Accessible Care Features</div>
+        <h2>Healthcare Services Designed for Every Citizen</h2>
+        <p>Simple navigation, clear medical boundaries, and verified traditional knowledge.</p>
+      </div>
+
+      <div class="feature-cards-grid">
+        <div class="feature-card" onclick="showSection('symptomCheckerSection')" style="cursor: pointer;">
+          <div class="feature-card-icon">🩺</div>
+          <h3 data-i18n="feat_symptom_title">Smart Symptom Checker</h3>
+          <p data-i18n="feat_symptom_desc">
+            Evaluate your symptoms, check for red flags, understand your Dosha imbalance, and get safe next steps.
+          </p>
+          <button class="btn btn-sm btn-outline" style="align-self: flex-start;">Start Assessment →</button>
+        </div>
+
+        <div class="feature-card" onclick="showSection('remediesSection')" style="cursor: pointer;">
+          <div class="feature-card-icon">🌿</div>
+          <h3 data-i18n="feat_remedies_title">Evidence-Based Remedies</h3>
+          <p data-i18n="feat_remedies_desc">
+            Explore traditional herbs with scientific evidence ratings, safety limitations, drug interactions, and precautions.
+          </p>
+          <button class="btn btn-sm btn-outline" style="align-self: flex-start;">Browse Remedies →</button>
+        </div>
+
+        <div class="feature-card" onclick="showSection('doctorsSection')" style="cursor: pointer;">
+          <div class="feature-card-icon">👨‍⚕️</div>
+          <h3 data-i18n="feat_doctors_title">Certified Ayurvedic Doctors</h3>
+          <p data-i18n="feat_doctors_desc">
+            Connect with verified BAMS and MD Ayurvedic physicians for online video or in-clinic consultations across India.
+          </p>
+          <button class="btn btn-sm btn-outline" style="align-self: flex-start;">Find Doctors →</button>
+        </div>
+
+        <div class="feature-card" onclick="showSection('assessmentSection')" style="cursor: pointer;">
+          <div class="feature-card-icon">⚖️</div>
+          <h3 data-i18n="feat_assessment_title">Prakriti Health Assessment</h3>
+          <p data-i18n="feat_assessment_desc">
+            Discover your unique constitutional balance (Vata, Pitta, Kapha) and receive personalized daily diet advice.
+          </p>
+          <button class="btn btn-sm btn-outline" style="align-self: flex-start;">Take Prakriti Quiz →</button>
+        </div>
+      </div>
+
+      <!-- Daily Dinacharya Circadian Advice Widget -->
+      <div class="dinacharya-widget">
+        <div class="dinacharya-info">
+          <h4 data-i18n="dinacharya_title">Daily Ayurvedic Circadian Wisdom (Dinacharya)</h4>
+          <h3>The Circadian Rhythm of Digestion (Agni)</h3>
+          <p data-i18n="dinacharya_tip">
+            According to Ayurveda, eating your heaviest meal between 12 PM - 2 PM aligns with the peak of your digestive fire (Jatharagni), maximizing nutrient absorption and preventing metabolic toxins (Ama).
+          </p>
+        </div>
+        <button class="btn btn-outline" onclick="showSection('educationSection')" style="border-color: #92400e; color: #92400e;">
+          Explore Dinacharya Guide →
+        </button>
+      </div>
+
+      <!-- Featured Remedies Spotlight -->
+      <div style="margin-bottom: 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+          <div>
+            <div class="section-header" style="margin-bottom: 0;">
+              <div class="sub-heading">Featured Clinical Monographs</div>
+              <h2>Evidence-Rated Ayurvedic Herbs</h2>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="showSection('remediesSection')">View All Remedies →</button>
+        </div>
+        <div id="featuredRemediesGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+      </div>
+
+      <!-- Featured Doctors Spotlight -->
+      <div style="margin-bottom: 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px;">
+          <div>
+            <div class="section-header" style="margin-bottom: 0;">
+              <div class="sub-heading">Verified Medical Network</div>
+              <h2>Qualified Ayurvedic Physicians</h2>
+            </div>
+          </div>
+          <button class="btn btn-sm btn-outline" onclick="showSection('doctorsSection')">View All Doctors →</button>
+        </div>
+        <div id="featuredDoctorsGrid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;"></div>
+      </div>
+
+      <!-- Statutory Medical Disclaimer Card -->
+      <div class="medical-disclaimer-card">
+        <div class="disclaimer-icon">ℹ️</div>
+        <div>
+          <p data-i18n="medical_disclaimer">
+            <strong>Medical Safety Disclaimer:</strong> Information on this platform is for educational and wellness guidance only. It does not replace clinical diagnosis, laboratory tests, or doctor consultations. Never stop or modify prescription medicines without consulting your physician.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION B: SYMPTOM CHECKER & TRIAGE WIZARD
+         ========================================================= -->
+    <section id="symptomCheckerSection" class="section-view">
+      <div class="section-header">
+        <div class="sub-heading">Clinical & Ayurvedic Triage</div>
+        <h2>Interactive Health Symptom Checker</h2>
+        <p>Answer a few questions to screen for emergency red flags, understand biological Dosha patterns, and receive evidence-based safe next steps.</p>
+      </div>
+
+      <div class="medical-disclaimer-card">
+        <div class="disclaimer-icon">⚠️</div>
+        <p>
+          <strong>Notice:</strong> This tool is an educational wellness screening guide, <strong>NOT a medical diagnosis</strong>. If you are experiencing sudden severe chest pain, shortness of breath, or bleeding, call 108 or visit an emergency room immediately.
+        </p>
+      </div>
+
+      <div class="symptom-wizard-card">
+        <!-- Step Progress Bar -->
+        <div class="wizard-progress">
+          <div class="wizard-step-indicator active" id="stepInd1">
+            <div class="step-circle">1</div>
+            <div class="step-label">Select Symptom</div>
+          </div>
+          <div class="wizard-step-indicator" id="stepInd2">
+            <div class="step-circle">2</div>
+            <div class="step-label">Red Flag Check</div>
+          </div>
+          <div class="wizard-step-indicator" id="stepInd3">
+            <div class="step-circle">3</div>
+            <div class="step-label">Duration & Age</div>
+          </div>
+          <div class="wizard-step-indicator" id="stepInd4">
+            <div class="step-circle">4</div>
+            <div class="step-label">Guidance & Triage</div>
+          </div>
+        </div>
+
+        <!-- Step 1 Pane: Choose Symptom -->
+        <div class="wizard-step-pane active" id="wizardPane1">
+          <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 6px;">
+            What primary symptom or discomfort are you experiencing?
+          </h3>
+          <p style="font-size: 0.9rem; color: var(--color-text-muted);">
+            Choose from the common conditions below to begin your safety and wellness evaluation:
+          </p>
+
+          <div class="symptom-grid" id="symptomCardsGrid"></div>
+
+          <div class="wizard-footer-buttons">
+            <div></div>
+            <button class="btn btn-primary" id="step1NextBtn" disabled onclick="goToWizardStep(2)">
+              Continue to Safety Screening →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2 Pane: Emergency Red-Flags Screening -->
+        <div class="wizard-step-pane" id="wizardPane2">
+          <div class="red-flag-box">
+            <h3>🚨 Emergency Red Flag Safety Screening</h3>
+            <p style="font-size: 0.9rem; color: #7f1d1d; margin-bottom: 16px;">
+              Please check any of the following critical warning signs if you are currently experiencing them:
+            </p>
+            <div id="redFlagsChecklist"></div>
+          </div>
+
+          <p style="font-size: 0.85rem; color: var(--color-text-muted); italic;">
+            * If any red-flag box is checked, our system will prioritize directing you to immediate emergency medical services rather than home remedies.
+          </p>
+
+          <div class="wizard-footer-buttons">
+            <button class="btn btn-outline" onclick="goToWizardStep(1)">← Back</button>
+            <button class="btn btn-primary" onclick="goToWizardStep(3)">
+              Next: Duration & Severity →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3 Pane: Duration, Severity & Age -->
+        <div class="wizard-step-pane" id="wizardPane3">
+          <h3 style="font-size: 1.25rem; color: var(--color-primary); margin-bottom: 16px;">
+            How long and how intense are your symptoms?
+          </h3>
+
+          <div class="form-group">
+            <label for="symptomDurationSelect">How many days have you had this symptom?</label>
+            <select id="symptomDurationSelect" class="form-control" style="max-width: 320px;">
+              <option value="1">1 day (Just started)</option>
+              <option value="2" selected>2 to 3 days</option>
+              <option value="5">4 to 7 days</option>
+              <option value="10">1 to 2 weeks</option>
+              <option value="20">More than 2 weeks (Chronic)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Severity Level:</label>
+            <div class="radio-group-cards">
+              <label class="radio-card selected">
+                <input type="radio" name="severityRadio" value="mild" checked>
+                <div>
+                  <strong>Mild</strong>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">Slight discomfort, normal daily routine</div>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="severityRadio" value="moderate">
+                <div>
+                  <strong>Moderate</strong>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">Interferes with sleep or work</div>
+                </div>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="severityRadio" value="severe">
+                <div>
+                  <strong>Severe</strong>
+                  <div style="font-size: 0.775rem; color: var(--color-text-muted);">Intense distress, unable to perform basic tasks</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="symptomAgeInput">Patient's Age (Years):</label>
+            <input type="number" id="symptomAgeInput" class="form-control" value="30" min="1" max="110" style="max-width: 160px;">
+          </div>
+
+          <div class="wizard-footer-buttons">
+            <button class="btn btn-outline" onclick="goToWizardStep(2)">← Back</button>
+            <button class="btn btn-primary" onclick="submitSymptomEvaluation()">
+              Evaluate Symptoms & Generate Guidance →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 4 Pane: Triage Results Display -->
+        <div class="wizard-step-pane" id="wizardPane4">
+          <div id="symptomResultsContent"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION C: AYURVEDIC REMEDIES & HERB SAFETY
+         ========================================================= -->
+    <section id="remediesSection" class="section-view">
+      <div class="section-header">
+        <div class="sub-heading">Pharmacological Integrity & Evidence</div>
+        <h2>Ayurvedic Remedies & Classical Herbs Monograph</h2>
+        <p>Explore traditional herbs with modern scientific evidence reviews, safe preparation methods, known side effects, contraindications, and prescription drug interactions.</p>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div class="catalog-filter-bar">
+        <div class="filter-pills">
+          <button class="filter-pill active" onclick="filterRemediesByCategory('all', this)">All Categories</button>
+          <button class="filter-pill" onclick="filterRemediesByCategory('Anti-inflammatory & Digestive Spice', this)">Anti-inflammatory & Spices</button>
+          <button class="filter-pill" onclick="filterRemediesByCategory('Adaptogen & Rejuvenator (Rasayana)', this)">Adaptogens & Stress</button>
+          <button class="filter-pill" onclick="filterRemediesByCategory('Respiratory & Immunomodulatory Herb', this)">Respiratory & Immunity</button>
+          <button class="filter-pill" onclick="filterRemediesByCategory('Digestive & Bowel Tonic (Anulomana)', this)">Digestive & Gut</button>
+          <button class="filter-pill" onclick="filterRemediesByCategory('Brain & Nervous System Tonic (Medhya Rasayana)', this)">Nervous & Mind</button>
+        </div>
+
+        <div style="min-width: 260px;">
+          <input
+            type="text"
+            id="remedyFilterSearch"
+            class="form-control"
+            placeholder="Search remedies..."
+            oninput="loadRemedies('', this.value)"
+          >
+        </div>
+      </div>
+
+      <!-- Remedies Cards Grid -->
+      <div id="remediesGrid" class="remedies-grid"></div>
+
+      <!-- Herb-Drug Interaction Checker Tool -->
+      <div class="interaction-checker-box">
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+          <span style="font-size: 1.8rem;">🔬</span>
+          <h3 style="font-size: 1.35rem; color: var(--color-primary); font-weight: 800;">
+            Interactive Herb-Drug Interaction Checker
+          </h3>
+        </div>
+        <p style="font-size: 0.95rem; color: var(--color-text-muted); max-width: 760px;">
+          Taking prescription medicine? Many herbs interact with allopathic blood thinners, antidiabetics, and blood pressure pills. Verify clinical safety before combining:
+        </p>
+
+        <div class="interaction-form">
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="interactionHerbInput">Ayurvedic Herb / Formula:</label>
+            <input type="text" id="interactionHerbInput" class="form-control" placeholder="e.g. Turmeric, Ashwagandha, Licorice, Giloy, Triphala">
+          </div>
+          <div class="form-group" style="margin-bottom: 0;">
+            <label for="interactionDrugInput">Allopathic / Prescription Drug:</label>
+            <input type="text" id="interactionDrugInput" class="form-control" placeholder="e.g. Warfarin, Aspirin, Metformin, Levothyroxine, Amlodipine">
+          </div>
+          <button class="btn btn-secondary" onclick="checkHerbDrugInteraction()" style="height: 44px;">
+            Check Interaction
+          </button>
+        </div>
+
+        <!-- Result Box for Interaction -->
+        <div id="interactionResultBox" style="margin-top: 16px; display: none;"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION D: DOCTOR CONSULTATION
+         ========================================================= -->
+    <section id="doctorsSection" class="section-view">
+      <div class="section-header">
+        <div class="sub-heading">Registered Ayush Practitioners</div>
+        <h2>Consult Qualified Ayurvedic Doctors</h2>
+        <p>Book online video appointments or clinic visits with verified BAMS and MD Ayurvedic specialists across India.</p>
+      </div>
+
+      <!-- Doctor Filters -->
+      <div class="catalog-filter-bar" style="background: #ffffff; padding: 16px 20px; border-radius: 12px; border: 1px solid var(--color-border);">
+        <div style="display: flex; gap: 14px; flex-wrap: wrap; width: 100%;">
+          <div style="flex: 1; min-width: 200px;">
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 4px; display: block;">Specialization:</label>
+            <select id="doctorFilterSpec" class="form-control" onchange="applyDoctorFilters()">
+              <option value="all">All Specializations</option>
+              <option value="Internal Medicine">Internal Medicine (Kayachikitsa)</option>
+              <option value="Panchakarma">Panchakarma & Joints</option>
+              <option value="Women">Women’s Health & Hormones</option>
+              <option value="Anorectal">Anorectal & Ksharsutra</option>
+              <option value="Stress">Stress & Mental Health</option>
+            </select>
+          </div>
+
+          <div style="flex: 1; min-width: 160px;">
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 4px; display: block;">City:</label>
+            <select id="doctorFilterCity" class="form-control" onchange="applyDoctorFilters()">
+              <option value="all">All Cities</option>
+              <option value="New Delhi">New Delhi</option>
+              <option value="Pune">Pune</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Jaipur">Jaipur</option>
+              <option value="Kochi">Kochi</option>
+            </select>
+          </div>
+
+          <div style="flex: 1; min-width: 160px;">
+            <label style="font-size: 0.8rem; font-weight: 700; color: var(--color-text-muted); margin-bottom: 4px; display: block;">Consultation Mode:</label>
+            <select id="doctorFilterMode" class="form-control" onchange="applyDoctorFilters()">
+              <option value="all">All Modes</option>
+              <option value="Online Video">Online Video Call</option>
+              <option value="In-Clinic">In-Clinic Visit</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctors Grid -->
+      <div id="doctorsGrid" class="doctors-grid"></div>
+    </section>
+
+    <!-- =========================================================
+         SECTION E: HEALTH ASSESSMENT (PRAKRITI QUIZ)
+         ========================================================= -->
+    <section id="assessmentSection" class="section-view">
+      <div class="assessment-container">
+        <div class="section-header" style="text-align: center;">
+          <div class="sub-heading">Ayurvedic Constitution Analysis</div>
+          <h2>Prakriti (Dosha) Health Assessment</h2>
+          <p style="margin: 0 auto;">Discover your unique biological constitution (Vata, Pitta, Kapha) based on traditional phenotypic characteristics, and receive customized dietary and daily routine guidance.</p>
+        </div>
+
+        <div class="medical-disclaimer-card">
+          <div class="disclaimer-icon">ℹ️</div>
+          <p>
+            <strong>Wellness Disclaimer:</strong> This assessment evaluates constitutional tendencies (Prakriti) according to classical Ayurvedic principles. It is designed for personalized preventive wellness and lifestyle balance, <strong>not as a clinical diagnosis of disease</strong>.
+          </p>
+        </div>
+
+        <!-- Quiz Form -->
+        <form id="prakritiQuizForm" onsubmit="submitPrakritiAssessment(event)">
+          <div class="card" style="margin-bottom: 24px;">
+            <label for="quizUserName" style="font-weight: 700; font-size: 1rem; color: var(--color-primary); margin-bottom: 6px; display: block;">
+              Enter Your Name:
+            </label>
+            <input type="text" id="quizUserName" class="form-control" placeholder="e.g. Ramesh Kumar" required style="max-width: 320px;">
+          </div>
+
+          <div id="quizQuestionsContainer"></div>
+
+          <div style="text-align: center; margin-top: 32px;">
+            <button type="submit" class="btn btn-primary btn-lg">
+              Calculate My Dosha Balance & Recommendations →
+            </button>
+          </div>
+        </form>
+
+        <!-- Quiz Results Card (Initially hidden) -->
+        <div id="prakritiResultCard" style="display: none;"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION F: EDUCATION & MYTHS (AYURGYAN)
+         ========================================================= -->
+    <section id="educationSection" class="section-view">
+      <div class="section-header">
+        <div class="sub-heading">AyurGyan & Public Awareness</div>
+        <h2>Ayurvedic Concepts & Myth Busters</h2>
+        <p>Simple explanations of core Ayurvedic concepts, circadian rhythm sciences, and evidence-based debunking of dangerous medical myths.</p>
+      </div>
+
+      <h3 style="font-size: 1.35rem; color: var(--color-primary); margin-bottom: 16px;">
+        📚 Foundational Ayurvedic Guides
+      </h3>
+      <div id="articlesGrid" class="articles-grid"></div>
+
+      <div style="margin-top: 48px;">
+        <h3 style="font-size: 1.35rem; color: var(--color-emergency); margin-bottom: 6px;">
+          💡 Myth vs. Fact: Evidence-Based Realities
+        </h3>
+        <p style="color: var(--color-text-muted); font-size: 0.95rem; margin-bottom: 20px;">
+          Distinguishing traditional beliefs from verified clinical realities for patient safety.
+        </p>
+        <div id="mythsGrid" class="myths-grid"></div>
+      </div>
+    </section>
+
+    <!-- =========================================================
+         SECTION G: MY APPOINTMENTS TRACKER
+         ========================================================= -->
+    <section id="appointmentsSection" class="section-view">
+      <div class="section-header">
+        <div class="sub-heading">Appointment Management</div>
+        <h2>My Scheduled Consultations</h2>
+        <p>View your confirmed online video calls and clinic visits with our certified Ayurvedic doctors.</p>
+      </div>
+
+      <div id="myAppointmentsList"></div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       MODALS
+       ========================================================= -->
+
+  <!-- Remedy Detail Monograph Modal -->
+  <div id="remedyDetailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="remedyModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="remedyModalTitle">Remedy Details</h3>
+        <button class="modal-close-btn" onclick="closeRemedyModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-body" id="remedyModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeRemedyModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointment Booking Modal -->
+  <div id="appointmentBookingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="bookingModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="bookingModalTitle">Schedule Doctor Consultation</h3>
+        <button class="modal-close-btn" onclick="closeBookingModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <form onsubmit="handleAppointmentSubmit(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="bookingDoctorSelect">Select Doctor:</label>
+            <select id="bookingDoctorSelect" class="form-control" required></select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="bookingModeSelect">Consultation Mode:</label>
+              <select id="bookingModeSelect" class="form-control" required>
+                <option value="Online Video">Online Video Consultation</option>
+                <option value="In-Clinic">In-Person Clinic Visit</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bookingDateInput">Preferred Date:</label>
+              <input type="date" id="bookingDateInput" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bookingTimeSelect">Time Slot:</label>
+            <select id="bookingTimeSelect" class="form-control" required>
+              <option value="10:00 AM - 10:30 AM">10:00 AM - 10:30 AM (Morning)</option>
+              <option value="11:30 AM - 12:00 PM">11:30 AM - 12:00 PM (Morning)</option>
+              <option value="03:00 PM - 03:30 PM">03:00 PM - 03:30 PM (Afternoon)</option>
+              <option value="05:30 PM - 06:00 PM">05:30 PM - 06:00 PM (Evening)</option>
+              <option value="07:00 PM - 07:30 PM">07:00 PM - 07:30 PM (Evening)</option>
+            </select>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="bookingPatientName">Patient Full Name:</label>
+              <input type="text" id="bookingPatientName" class="form-control" placeholder="e.g. Sunita Devi" required>
+            </div>
+            <div class="form-group">
+              <label for="bookingPatientAge">Age:</label>
+              <input type="number" id="bookingPatientAge" class="form-control" value="35" min="1" max="110" required>
+            </div>
+            <div class="form-group">
+              <label for="bookingPatientGender">Gender:</label>
+              <select id="bookingPatientGender" class="form-control">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+            <div class="form-group">
+              <label for="bookingPatientPhone">Mobile Phone (WhatsApp):</label>
+              <input type="tel" id="bookingPatientPhone" class="form-control" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+              <label for="bookingPatientEmail">Email Address (Optional):</label>
+              <input type="email" id="bookingPatientEmail" class="form-control" placeholder="e.g. user@email.com">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="bookingComplaint">Chief Complaint / Health Concerns:</label>
+            <textarea id="bookingComplaint" class="form-control" rows="3" placeholder="Briefly describe your health issue, duration, and any past history..." required></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" onclick="closeBookingModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="submitBookingBtn">Confirm & Book Appointment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Booking Success Modal -->
+  <div id="bookingSuccessModal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-dialog" style="max-width: 520px; text-align: center;">
+      <div class="modal-header" style="justify-content: center; background: #f0fdf4;">
+        <h3 style="color: #15803d;">🎉 Appointment Confirmed!</h3>
+      </div>
+      <div class="modal-body">
+        <div style="font-size: 3rem; margin-bottom: 8px;">✅</div>
+        <div id="successModalDetails"></div>
+      </div>
+      <div class="modal-footer" style="justify-content: center;">
+        <button class="btn btn-primary" onclick="closeSuccessModal(); showSection('appointmentsSection');">
+          View My Appointments
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Article Reader Modal -->
+  <div id="articleDetailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="articleModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="articleModalTitle">Educational Guide</h3>
+        <button class="modal-close-btn" onclick="closeArticleModal()" aria-label="Close dialog">✕</button>
+      </div>
+      <div class="modal-body" id="articleModalBody"></div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" onclick="closeArticleModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px;">
+            <div class="brand-icon" style="width: 36px; height: 36px; font-size: 1.2rem;">🌿</div>
+            <h3 style="color: #ffffff; font-size: 1.25rem;">AyurCare Platform</h3>
+          </div>
+          <p style="font-size: 0.875rem; color: #94a3b8; line-height: 1.6; margin-bottom: 16px;">
+            A compassionate digital healthcare initiative bridging timeless classical Ayurvedic wisdom with modern clinical evidence to provide reliable, safe, and accessible wellness for every citizen across India.
+          </p>
+          <div style="font-size: 0.8rem; color: #cbd5e1;">
+            Designed for high accessibility, multi-language support, and voice assistance.
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Quick Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#home" onclick="showSection('homeSection')">Home</a></li>
+            <li><a href="#symptom-checker" onclick="showSection('symptomCheckerSection')">Symptom Checker</a></li>
+            <li><a href="#remedies" onclick="showSection('remediesSection')">Remedies & Herbs</a></li>
+            <li><a href="#doctors" onclick="showSection('doctorsSection')">Certified Doctors</a></li>
+            <li><a href="#assessment" onclick="showSection('assessmentSection')">Prakriti Quiz</a></li>
+            <li><a href="#education" onclick="showSection('educationSection')">AyurGyan & Myths</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Emergency Hotlines</h4>
+          <ul class="footer-links">
+            <li><a href="tel:108" style="color: #f87171; font-weight: 700;">🚨 108 - National Ambulance</a></li>
+            <li><a href="tel:112" style="color: #f87171; font-weight: 700;">🚨 112 - All Emergencies</a></li>
+            <li><a href="tel:1075">📞 1075 - National Health Helpline</a></li>
+            <li><a href="tel:14416">🧠 14416 - Tele-MANAS (Mental Health)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Regulatory & Standards</h4>
+          <p style="font-size: 0.85rem; color: #94a3b8; line-height: 1.5; margin-bottom: 12px;">
+            Content curated in accordance with classical treatises (Charaka Samhita, Sushruta Samhita) and cross-referenced with modern pharmacopeias and WHO Traditional Medicine safety frameworks.
+          </p>
+          <div style="background: rgba(255,255,255,0.06); padding: 10px; border-radius: 6px; font-size: 0.775rem; color: #94a3b8;">
+            Registered under Ayush Information & Telemedicine guidelines.
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-disclaimer-strip">
+        <p>
+          <strong>Statutory Medical Caution:</strong> The information provided on this platform is for educational and wellness guidance only. It is not intended as medical advice, clinical diagnosis, or treatment. Always consult a qualified medical doctor or registered Ayurvedic physician regarding medical conditions or before changing medications.
+        </p>
+        <p style="margin-top: 8px;">
+          © 2026 AyurCare Healthcare & Wellness Platform. All rights reserved across India.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/i18n.js"></script>
+  <script src="js/speech.js"></script>
+  <script src="js/remedies.js"></script>
+  <script src="js/doctors.js"></script>
+  <script src="js/symptom-checker.js"></script>
+  <script src="js/assessment.js"></script>
+  <script src="js/education.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Inline Helper for Filter Handlers -->
+  <script>
+    function filterRemediesByCategory(cat, btn) {
+      document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      loadRemedies(cat);
+    }
+
+    function applyDoctorFilters() {
+      const spec = document.getElementById('doctorFilterSpec').value;
+      const city = document.getElementById('doctorFilterCity').value;
+      const mode = document.getElementById('doctorFilterMode').value;
+      loadDoctors(spec, city, mode);
+    }
+  </script>
+
+</body>
+</html>
+
